@@ -9,6 +9,7 @@ const eventSchema = mongoose.Schema({
   regAmount: { type: Number, required: true },
   teamSize: { type: Number, required: true },
   lastDate: { type: String, required: true },
+  organiserContact: { type: String, required: true },   // ⭐ new field added
   createdAt: { type: Date, default: Date.now }
 });
 
