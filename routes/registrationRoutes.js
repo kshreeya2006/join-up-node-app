@@ -1,5 +1,6 @@
 import express from "express";
 import registrationModel from "../models/registrationModel.js";
+import eventModel from "../models/eventModel.js";
 
 const registrationRouter = express.Router();
 
@@ -28,13 +29,16 @@ registrationRouter.post("/new", async (req, res) => {
   }
 });
 
-// Get all registrations of a user
+// Get all registrations of a user with event details
 registrationRouter.get("/:email", async (req, res) => {
   const email = req.params.email;
 
   try {
-    const result = await registrationModel.find({ userEmail: email });
-    return res.json(result);
+    const registrations = await registrationModel
+      .find({ userEmail: email })
+      .populate("eventId"); // Populates the full event document
+
+    return res.json(registrations);
   } catch (error) {
     return res.status(500).json({ message: "Failed to fetch registered events", error });
   }

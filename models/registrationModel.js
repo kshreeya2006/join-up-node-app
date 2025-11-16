@@ -2,9 +2,11 @@ import mongoose from "mongoose";
 
 const registrationSchema = mongoose.Schema({
   userEmail: { type: String, required: true },
-  eventId: { type: String, required: true },
 
-  // NEW FIELDS (for your registration form)
+  // Make this a reference to the Event model
+  eventId: { type: mongoose.Schema.Types.ObjectId, ref: "Event", required: true },
+
+  // Registration form fields
   phone: { type: String, required: true },
   teamMembers: { type: [String], default: [] },   // array of member names
   teamSize: { type: Number, default: 1 },
